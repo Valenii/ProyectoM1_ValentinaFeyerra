@@ -1,0 +1,58 @@
+/* Variables de la paleta */
+:root {
+  --color-primary:  #378ADD;
+  --color-primary-light: #E6F1FB;
+  --color-success: #1D9E75;
+  --color-warning: #EF9F27;
+  --color-danger:  #E24B4A;
+}
+
+/* Cada swatch (cajita de color) */
+.color-swatch {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+/* El bloque de color en sí */
+.swatch-color {
+  width:  100%;
+  height: 80px;
+  background: var(--color-primary);
+}
+
+/* Nombre y código hex abajo */
+.swatch-info {
+  padding: 8px;
+  font-size: 12px;
+}
+
+/* Contenedor de la fila de swatches */
+.palette-container {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 24px;
+}
+
+/* Ancho fijo para cada swatch */
+.color-swatch {
+    width: 120px;
+}
+
+/* Nombre del color */
+.swatch-name {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 2px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Código hex */
+.swatch-hex {
+    color: #888;
+    display: block;
+    font-family: monospace;
+}
