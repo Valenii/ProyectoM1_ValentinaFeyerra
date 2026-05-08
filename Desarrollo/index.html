@@ -4,77 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans:opsz,wght@17..18,462&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:opsz,wght@17..18,462&family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
 
     <title>Paleta de Colores</title>
-     <link rel="stylesheet" href="style.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <h1>Mi Paleta de Colores</h1>
-<!--    Controles -->
-     <div class="controls">
-        <input type="color" id="baseColor" value="#378ADD">
+
+    <!-- CONTROLES -->
+    <div class="controls">
+
+        <!-- Modos -->
         <select id="modeSelect">
             <option value="complementary">Complementario</option>
             <option value="analogous">Análogo</option>
             <option value="triadic">Triádico</option>
             <option value="monochromatic">Monocromático</option>
         </select>
-        <button onclick="generar()">Generar paleta</button>
-    </div>
 
-    <div class="palette-container">
-     
-       <!-- Primary -->
-      <div class="color-swatch">
-            <div class="swatch-color" style="background: var(--color-primary)"></div>
-            <div class="swatch-info">
-                <span class="swatch-name">Primary</span>
-                <span class="swatch-hex">#378ADD</span>
-            </div>
-        </div>
+        <!-- Cantidad -->
+        <select id="countSelect">
+            <option value="6">6 colores</option>
+            <option value="8" selected>8 colores</option>
+            <option value="9">9 colores</option>
+        </select>
 
-         <!-- Primary Light -->
-        <div class="color-swatch">
-            <div class="swatch-color" style="background: var(--color-primary-light)"></div>
-            <div class="swatch-info">
-                <span class="swatch-name">Primary Light</span>
-                <span class="swatch-hex">#E6F1FB</span>
-            </div>
-        </div>
+        <!-- Formato -->
+        <select id="formatSelect">
+            <option value="hex">HEX</option>
+            <option value="hsl">HSL</option>
+            <option value="rgba">RGBA</option>
+        </select>
 
-        <!-- Success -->
-        <div class="color-swatch">
-            <div class="swatch-color" style="background: var(--color-success)"></div>
-            <div class="swatch-info">
-                <span class="swatch-name">Success</span>
-                <span class="swatch-hex">#1D9E75</span>
-            </div>
-        </div>
-
-        <!-- Warning -->
-        <div class="color-swatch">
-            <div class="swatch-color" style="background: var(--color-warning)"></div>
-            <div class="swatch-info">
-                <span class="swatch-name">Warning</span>
-                <span class="swatch-hex">#EF9F27</span>
-            </div>
-        </div>
-
-        <!-- Danger -->
-        <div class="color-swatch">
-            <div class="swatch-color" style="background: var(--color-danger)"></div>
-            <div class="swatch-info">
-                <span class="swatch-name">Danger</span>
-                <span class="swatch-hex">#E24B4A</span>
-            </div>
-        </div>
+        <!-- Botón -->
+        <button onclick="generarAleatoria()">
+            Generar Paleta
+        </button>
 
     </div>
-     <script src="script.js"></script>
-    
+
+    <!-- CONTENEDOR DINÁMICO -->
+    <div class="palette-container" id="paletteContainer"></div>
+
+    <!-- TOOLTIP -->
+    <div id="tooltip" hidden></div>
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
 </body>
 </html>

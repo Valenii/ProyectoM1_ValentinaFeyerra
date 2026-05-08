@@ -1,58 +1,209 @@
-/* Variables de la paleta */
+/* ── Variables de la paleta ────────────────────────────────────── */
 :root {
-  --color-primary:  #378ADD;
+  --color-primary:       #378ADD;
   --color-primary-light: #E6F1FB;
-  --color-success: #1D9E75;
-  --color-warning: #EF9F27;
-  --color-danger:  #E24B4A;
+  --color-success:       #1D9E75;
+  --color-warning:       #EF9F27;
+  --color-danger:        #E24B4A;
+ 
+  /* Tema general */
+  --bg-page:      #0f1117;
+  --bg-surface:   #181c27;
+  --bg-card:      #1e2333;
+  --border-color: rgba(255,255,255,0.08);
+  --text-main:    #f0f2f8;
+  --text-muted:   #8892a4;
+  --accent:       #378ADD;
+  --accent-glow:  rgba(55,138,221,0.25);
 }
-
-/* Cada swatch (cajita de color) */
+ 
+/* ── Reset básico ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+/* ── Página ────────────────────────────────────────────────────── */
+body {
+  background-color: var(--bg-page);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(55,138,221,0.18) 0%, transparent 60%);
+  color: var(--text-main);
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 56px 24px 80px;
+}
+ 
+/* ── Título ────────────────────────────────────────────────────── */
+h1 {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  text-align: center;
+  margin-bottom: 8px;
+ 
+  background: linear-gradient(120deg, #ffffff 30%, #7ab8f5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+ 
+/* Subtítulo opcional */
+h1 + p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 40px;
+}
+ 
+/* ── Panel de controles ────────────────────────────────────────── */
+.controls {
+  display: flex;
+  align-items: center;    /* alinea verticalmente todos los elementos */
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px 28px;
+  margin: 32px 0 48px;
+  width: 100%;
+  max-width: 900px;       /* ampliado para los 2 selectores nuevos */
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset;
+}
+ 
+/* Input de color */
+input[type="color"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  border: 2px solid var(--border-color);
+  background: none;
+  cursor: pointer;
+  padding: 2px;
+  transition: border-color 0.2s;
+}
+input[type="color"]:hover { border-color: var(--accent); }
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 7px;
+}
+ 
+/* Todos los selects */
+select {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+  min-width: 120px;       /* reducido para que entren los 3 selects */
+}
+select:hover, select:focus { border-color: var(--accent); }
+ 
+/* Botón Generar */
+button {
+  background: linear-gradient(135deg, #378ADD 0%, #2163b8 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 26px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 18px rgba(55,138,221,0.35);
+}
+button:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(55,138,221,0.45);
+}
+button:active { transform: translateY(0); opacity: 1; }
+ 
+/* ── Contenedor de swatches ────────────────────────────────────── */
+.palette-container {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 900px;
+}
+ 
+/* ── Cada swatch ────────────────────────────────────────────────── */
 .color-swatch {
   display: flex;
   flex-direction: column;
-  border-radius: 8px;
+  width: 130px;
+  border-radius: 14px;
   overflow: hidden;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
-
-/* El bloque de color en sí */
+.color-swatch:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255,255,255,0.18);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+ 
+/* Bloque de color */
 .swatch-color {
-  width:  100%;
-  height: 80px;
-  background: var(--color-primary);
+  width: 100%;
+  height: 100px;
 }
-
-/* Nombre y código hex abajo */
+ 
+/* Info (nombre + hex) */
 .swatch-info {
-  padding: 8px;
-  font-size: 12px;
+  padding: 12px 12px 14px;
+  background: var(--bg-card);
+  transition: background 0.4s;
 }
-
-/* Contenedor de la fila de swatches */
-.palette-container {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    padding: 24px;
-}
-
-/* Ancho fijo para cada swatch */
-.color-swatch {
-    width: 120px;
-}
-
+ 
 /* Nombre del color */
 .swatch-name {
-    font-weight: 600;
-    display: block;
-    margin-bottom: 2px;
-    font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text-main);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
-
-/* Código hex */
+ 
+/* Código hex / rgb / hsl */
 .swatch-hex {
-    color: #888;
-    display: block;
-    font-family: monospace;
+  color: var(--text-muted);
+  display: block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.3px;
+  word-break: break-all;  /* evita que rgb() o hsl() se salga del swatch */
 }
+ 
+/* Código HSL */
+.swatch-hsl {
+  color: var(--text-muted);
+  display: block;
+  font-family: 'Courier New', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.3px;
+  word-break: break-all;
+}
+/* Flash de copiado */
+.swatch-info[style*="background: #d4edda"] {
+  background: #1a3a28 !important;
+}
+ 
