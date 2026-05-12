@@ -266,14 +266,20 @@ function copiarColor(swatch, valor) {
     });
 }
 
-// ─── Generar aleatoria ────────────────────────────────────────────────────────
+// ─── Estado global ────────────────────────────────────────────────────────────
 
-function generarAleatoria() {
+// Empieza en null, solo se genera cuando el usuario toca el botón en Aleatorio
+let colorBase = null;
+let modoActual = null;
 
-    const hex = colorAleatorio();
+// ─── Renderizar paleta ────────────────────────────────────────────────────────
 
-    const modo =
-        document.getElementById('modeSelect').value;
+function renderizarPaleta(modo) {
+
+    // Si todavía no hay colorBase, no renderizar nada
+    if (!colorBase) return;
+
+    modoActual = modo;
 
     const cantidad =
         parseInt(document.getElementById('countSelect').value);
@@ -282,22 +288,71 @@ function generarAleatoria() {
         document.getElementById('formatSelect').value;
 
     const paleta =
-        calcularPaleta(hex, modo, cantidad);
+        calcularPaleta(colorBase, modo, cantidad);
 
     actualizarSwatches(paleta, formato);
 }
 
+// ─── Generar aleatoria (solo el botón) ───────────────────────────────────────
+
+function generarAleatoria() {
+
+    const modo =
+        document.getElementById('modeSelect').value;
+
+    if (modo === 'random') {
+
+        // Genera nuevo color base y elige modo al azar
+        colorBase = colorAleatorio();
+
+        const modos = ['complementary', 'analogous', 'triadic', 'monochromatic'];
+        modoActual = modos[Math.floor(Math.random() * modos.length)];
+    }
+
+    renderizarPaleta(modoActual);
+}
+
 // ─── Eventos ──────────────────────────────────────────────────────────────────
 
-document.getElementById('formatSelect')
-.addEventListener('change', generarAleatoria);
-
 document.getElementById('modeSelect')
-.addEventListener('change', generarAleatoria);
+.addEventListener('change', () => {
+
+    const modo =
+        document.getElementById('modeSelect').value;
+
+    // Al volver a Aleatorio, mostrar lo que ya había generado sin cambiar nada
+    if (modo === 'random') {
+        if (modoActual) renderizarPaleta(modoActual);
+        return;
+    }
+
+    renderizarPaleta(modo);
+});
+
+document.getElementById('formatSelect')
+.addEventListener('change', () => {
+
+    const modo =
+        document.getElementById('modeSelect').value;
+
+    const modoARenderizar =
+        modo === 'random' ? modoActual : modo;
+
+    if (modoARenderizar) renderizarPaleta(modoARenderizar);
+});
 
 document.getElementById('countSelect')
-.addEventListener('change', generarAleatoria);
+.addEventListener('change', () => {
+
+    const modo =
+        document.getElementById('modeSelect').value;
+
+    const modoARenderizar =
+        modo === 'random' ? modoActual : modo;
+
+    if (modoARenderizar) renderizarPaleta(modoARenderizar);
+});
 
 // ─── Al cargar ────────────────────────────────────────────────────────────────
 
-generarAleatoria();
+// Página arranca vacía, espera que el usuario toque el botón en modo Aleatorio
