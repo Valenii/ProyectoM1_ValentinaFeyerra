@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,46 +18,50 @@
 
 <body>
 
-    <h1>Mi Paleta de Colores</h1>
+    <main>
 
-    <!-- CONTROLES -->
-    <div class="controls">
+        <h1>Mi Paleta de Colores</h1>
 
-        <!-- Modos -->
-        <select id="modeSelect">
-            <option value="random">Aleatorio</option>   <!--nueva opción -->
-            <option value="complementary">Complementario</option>
-            <option value="analogous">Análogo</option>
-            <option value="triadic">Triádico</option>
-            <option value="monochromatic">Monocromático</option>
-        </select>
+        <!-- CONTROLES -->
+        <div class="controls">
 
-        <!-- Cantidad -->
-        <select id="countSelect">
-            <option value="6">6 colores</option>
-            <option value="8" selected>8 colores</option>
-            <option value="9">9 colores</option>
-        </select>
+            <!-- Modos -->
+            <select id="modeSelect">
+                <option value="random">Aleatorio</option>   <!--nueva opción -->
+                <option value="complementary">Complementario</option>
+                <option value="analogous">Análogo</option>
+                <option value="triadic">Triádico</option>
+                <option value="monochromatic">Monocromático</option>
+            </select>
 
-        <!-- Formato -->
-        <select id="formatSelect">
-            <option value="hex">HEX</option>
-            <option value="hsl">HSL</option>
-            <option value="rgba">RGBA</option>
-        </select>
+            <!-- Cantidad -->
+            <select id="countSelect">
+                <option value="6">6 colores</option>
+                <option value="8" selected>8 colores</option>
+                <option value="9">9 colores</option>
+            </select>
 
-        <!-- Botón -->
-        <button onclick="generarAleatoria()">
-            Generar Paleta
-        </button>
+            <!-- Formato -->
+            <select id="formatSelect">
+                <option value="hex">HEX</option>
+                <option value="hsl">HSL</option>
+                <option value="rgba">RGBA</option>
+            </select>
 
-    </div>
+            <!-- Botón -->
+            <button onclick="generarAleatoria()">
+                Generar Paleta
+            </button>
 
-    <!-- CONTENEDOR DINÁMICO -->
-    <div class="palette-container" id="paletteContainer"></div>
+        </div>
 
-    <!-- TOOLTIP -->
-    <div id="tooltip" hidden></div>
+        <!-- CONTENEDOR DINÁMICO -->
+        <div class="palette-container" id="paletteContainer"></div>
+
+        <!-- TOOLTIP -->
+        <div id="tooltip" role="status" aria-live="polite" hidden></div>
+
+    </main>
 
     <!-- JAVASCRIPT -->
     <script src="script.js"></script>
