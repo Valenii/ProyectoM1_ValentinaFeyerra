@@ -53,10 +53,22 @@
                 Generar Paleta
             </button>
 
+                <!-- Botón Guardar -->
+            <button onclick="guardarPaleta()" id="btnGuardar" disabled>
+                Guardar Paleta
+            </button>
+
         </div>
 
         <!-- CONTENEDOR DINÁMICO -->
         <div class="palette-container" id="paletteContainer"></div>
+
+           <!-- PALETAS GUARDADAS -->
+        <section id="savedSection" hidden>
+            <h2 class="saved-title">Paletas Guardadas</h2>
+            <div id="savedList"></div>
+        </section>
+ 
 
         <!-- TOOLTIP -->
         <div id="tooltip" role="status" aria-live="polite" hidden></div>

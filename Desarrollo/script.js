@@ -290,7 +290,10 @@ function renderizarPaleta(modo) {
     const paleta =
         calcularPaleta(colorBase, modo, cantidad);
 
-    actualizarSwatches(paleta, formato);
+        actualizarSwatches(paleta, formato);
+
+    // Habilitar el botón Guardar
+    document.getElementById('btnGuardar').disabled = false;
 }
 
 // ─── Generar aleatoria (solo el botón) ───────────────────────────────────────
@@ -353,6 +356,121 @@ document.getElementById('countSelect')
     if (modoARenderizar) renderizarPaleta(modoARenderizar);
 });
 
-// ─── Al cargar ────────────────────────────────────────────────────────────────
-
-// Página arranca vacía, espera que el usuario toque el botón en modo Aleatorio
+// ─── Guardar paleta ───────────────────────────────────────────────────────────
+ 
+function guardarPaleta() {
+ 
+    if (!colorBase || !modoActual) return;
+ 
+    const cantidad =
+        parseInt(document.getElementById('countSelect').value);
+ 
+    const formato =
+        document.getElementById('formatSelect').value;
+ 
+    const paleta = calcularPaleta(colorBase, modoActual, cantidad);
+ 
+    const entrada = {
+        id:      Date.now(),
+        fecha:   new Date().toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' }),
+        modo:    modoActual,
+        colores: paleta,
+        formato
+    };
+ 
+    const guardadas = obtenerPaletasGuardadas();
+    guardadas.unshift(entrada);
+    localStorage.setItem('paletas', JSON.stringify(guardadas));
+ 
+    renderizarGuardadas();
+ 
+    // Feedback en el tooltip
+    const tooltip = document.getElementById('tooltip');
+    tooltip.textContent = '✔ Paleta guardada';
+    tooltip.hidden = false;
+    setTimeout(() => { tooltip.hidden = true; }, 1400);
+}
+ 
+// ─── Obtener paletas del localStorage ────────────────────────────────────────
+ 
+function obtenerPaletasGuardadas() {
+ 
+    try {
+        return JSON.parse(localStorage.getItem('paletas')) || [];
+    } catch {
+        return [];
+    }
+}
+ 
+// ─── Eliminar paleta ──────────────────────────────────────────────────────────
+ 
+function eliminarPaleta(id) {
+ 
+    const filtradas =
+        obtenerPaletasGuardadas().filter(p => p.id !== id);
+ 
+    localStorage.setItem('paletas', JSON.stringify(filtradas));
+ 
+    renderizarGuardadas();
+}
+ 
+// ─── Renderizar paletas guardadas ─────────────────────────────────────────────
+ 
+function renderizarGuardadas() {
+ 
+    const guardadas = obtenerPaletasGuardadas();
+    const section   = document.getElementById('savedSection');
+    const lista     = document.getElementById('savedList');
+ 
+    if (guardadas.length === 0) {
+        section.hidden = true;
+        lista.innerHTML = '';
+        return;
+    }
+ 
+    section.hidden = false;
+    lista.innerHTML = '';
+ 
+    const nombresLegibles = {
+        complementary: 'Complementario',
+        analogous:     'Análogo',
+        triadic:       'Triádico',
+        monochromatic: 'Monocromático'
+    };
+ 
+    guardadas.forEach(entrada => {
+ 
+        const div = document.createElement('div');
+        div.className = 'saved-palette';
+ 
+        div.innerHTML = `
+            <div class="saved-palette-header">
+                <span class="saved-palette-meta">
+                    ${nombresLegibles[entrada.modo] ?? entrada.modo}
+                    &nbsp;·&nbsp; ${entrada.colores.length} colores
+                    &nbsp;·&nbsp; ${entrada.fecha}
+                </span>
+                <button class="btn-delete" onclick="eliminarPaleta(${entrada.id})">
+                    Eliminar
+                </button>
+            </div>
+            <div class="saved-palette-swatches">
+                ${entrada.colores.map(c => `
+                    <div
+                        class="mini-swatch"
+                        style="background:${c.hex}"
+                        data-hex="${formatearColor(c.hex, entrada.formato)}"
+                        title="${c.nombre} · ${formatearColor(c.hex, entrada.formato)}"
+                        onclick="navigator.clipboard.writeText('${formatearColor(c.hex, entrada.formato)}')"
+                    ></div>
+                `).join('')}
+            </div>
+        `;
+ 
+        lista.appendChild(div);
+    });
+}
+ 
+// ─── Al cargar: restaurar paletas guardadas ───────────────────────────────────
+ 
+renderizarGuardadas();

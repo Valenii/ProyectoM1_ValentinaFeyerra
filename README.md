@@ -107,23 +107,46 @@ Al hacer click sobre un color:
 
 ---
 
+## 6. Guardar una paleta
+ 
+Una vez generada una paleta, se habilitará el botón:
+ 
+**"Guardar Paleta"**
+ 
+Al presionarlo:
+ 
+- la paleta actual se guarda de forma persistente en el navegador
+- aparece una sección **"Paletas Guardadas"** debajo de la paleta activa
+- cada paleta guardada muestra el modo de armonía, la cantidad de colores y la fecha y hora en que fue guardada
+Las paletas guardadas se conservan aunque se cierre o recargue la página.
+
+### Interacción con paletas guardadas
+ 
+Dentro de cada paleta guardada es posible:
+ 
+- hacer click sobre cualquier mini swatch para copiar su código al portapapeles
+- pasar el cursor sobre un mini swatch para ver su código en un tooltip
+- presionar **"Eliminar"** para borrar esa paleta de la lista
+---
+
 # Decisiones Técnicas — Manual Técnico
 
 ## Tecnologías utilizadas
 
 ### HTML5
 Se utilizó para estructurar la interfaz de usuario, incluyendo:
-
+ 
 - selectores de configuración
-- botón de generación
+- botones de generación y guardado
 - contenedor dinámico de colores
+- sección de paletas guardadas
 - tooltip de copiado
 
 ### CSS3
 Se utilizó para el diseño visual de la aplicación.
-
+ 
 Características implementadas:
-
+ 
 - interfaz con tema oscuro
 - gradientes y efectos visuales
 - animaciones hover en botones y tarjetas
@@ -133,16 +156,18 @@ Características implementadas:
 
 ### JavaScript (Vanilla JS)
 Toda la lógica de la aplicación fue desarrollada con JavaScript puro, sin utilizar librerías externas.
-
+ 
 Funciones implementadas:
-
+ 
 - generación aleatoria de colores
 - conversión entre formatos HEX, HSL y RGBA
 - cálculo de armonías cromáticas
 - renderizado dinámico de swatches
 - copiado automático al portapapeles
 - actualización automática al cambiar el modo, formato o cantidad de colores
-
+- guardado de paletas en `localStorage`
+- renderizado de paletas guardadas con mini swatches interactivos
+- eliminación individual de paletas guardadas
 ---
 
 # Cómo descargar y ejecutar la aplicación en local

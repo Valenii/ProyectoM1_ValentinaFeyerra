@@ -131,6 +131,21 @@ button:hover {
   box-shadow: 0 6px 24px rgba(55,138,221,0.45);
 }
 button:active { transform: translateY(0); opacity: 1; }
+
+/* ── Botón Guardar ─────────────────────────────────────────────── */
+#btnGuardar {
+  background: linear-gradient(135deg, #1D9E75 0%, #13755a 100%);
+  box-shadow: 0 4px 18px rgba(29,158,117,0.35);
+}
+#btnGuardar:hover {
+  box-shadow: 0 6px 24px rgba(29,158,117,0.45);
+}
+#btnGuardar:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
  
 /* ── Contenedor de swatches ────────────────────────────────────── */
 .palette-container {
@@ -205,5 +220,157 @@ button:active { transform: translateY(0); opacity: 1; }
 /* Flash de copiado */
 .swatch-info[style*="background: #d4edda"] {
   background: #1a3a28 !important;
+}
+ /* ── Tooltip ───────────────────────────────────────────────────── */
+#tooltip {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--color-success);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  pointer-events: none;
+  z-index: 100;
+}
+ 
+/* ── Sección de paletas guardadas ──────────────────────────────── */
+#savedSection {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+ 
+.saved-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 56px 0 24px;
+  position: relative;
+}
+ 
+.saved-title::before,
+.saved-title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 80px;
+  height: 1px;
+  background: var(--border-color);
+}
+.saved-title::before { right: calc(100% + 12px); }
+.saved-title::after  { left:  calc(100% + 12px); }
+ 
+#savedList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+ 
+.saved-palette {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color 0.2s;
+}
+.saved-palette:hover {
+  border-color: rgba(255,255,255,0.14);
+}
+ 
+.saved-palette-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+ 
+.saved-palette-meta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+ 
+.saved-palette-swatches {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-bottom: 6px;
+}
+ 
+.mini-swatch {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.mini-swatch:hover {
+  transform: scale(1.15) translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+ 
+.mini-swatch::after {
+  content: attr(data-hex);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.62rem;
+  font-family: 'Courier New', monospace;
+  white-space: nowrap;
+  padding: 3px 7px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 10;
+}
+.mini-swatch:hover::after { opacity: 1; }
+ 
+/* Botón Eliminar */
+.btn-delete {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  box-shadow: none;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.btn-delete:hover {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+  background: rgba(226,75,74,0.08);
+  opacity: 1;
+  transform: none;
+  box-shadow: none;
 }
  
